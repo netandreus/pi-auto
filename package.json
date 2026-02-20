@@ -1,6 +1,6 @@
 {
   "name": "@netandreus/pi-auto",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Pi package: usage-aware model switching and load-balancing for pi-coding-agent.",
   "type": "module",
   "main": "dist/index.js",
