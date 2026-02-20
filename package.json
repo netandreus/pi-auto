@@ -41,7 +41,9 @@
     "access": "public"
   },
   "pi": {
-    "skills": ["./skills"]
+    "skills": [
+      "./skills"
+    ]
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
