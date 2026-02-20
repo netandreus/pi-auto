@@ -1,6 +1,8 @@
 # pi-auto
 
-![pi-auto logo](logo.png)
+<div align="center">
+  <img src="logo.png" alt="Pi Cursor Provider" width="400" />
+</div>
 
 [![Node](https://img.shields.io/badge/node-%3E%3D18-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
