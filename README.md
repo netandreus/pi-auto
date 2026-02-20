@@ -177,6 +177,20 @@ You can override mapping and default models in `~/.pi/agent/pi-auto.json` if you
 
 ---
 
+## Publishing (npm)
+
+To publish to [npmjs.com](https://www.npmjs.com/):
+
+1. **Log in:** `npm login` (use an account with access to the `@netandreus` scope).
+2. **Bump version** in `package.json` (e.g. `0.1.0` → `0.1.1`).
+3. **Build and publish:**  
+   `npm publish`  
+   (runs `prepublishOnly` → `yarn build`, then publishes; scoped package is published as public via `publishConfig.access`.)
+
+To see what will be included: `npm pack --dry-run`.
+
+---
+
 ## License
 
 [MIT](LICENSE)

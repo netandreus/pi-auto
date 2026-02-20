@@ -25,6 +25,7 @@
     "load-balancing",
     "usage"
   ],
+  "license": "MIT",
   "repository": "github:netandreus/pi-auto",
   "homepage": "https://github.com/netandreus/pi-auto#readme",
   "bugs": "https://github.com/netandreus/pi-auto/issues",
@@ -33,8 +34,12 @@
     "skills",
     "package.json",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "logo.png"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "pi": {
     "skills": ["./skills"]
   },

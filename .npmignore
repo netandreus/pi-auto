@@ -1,0 +1,14 @@
+# Source and dev (only "files" in package.json are published; this backs that up)
+src/
+*.ts
+!*.d.ts
+tsconfig.json
+build.sh
+.git/
+.gitignore
+.cursor/
+node_modules/
+*.log
+.env
+.env.*
+.DS_Store
