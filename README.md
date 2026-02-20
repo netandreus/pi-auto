@@ -79,7 +79,9 @@ If you installed via `pi install npm:@netandreus/pi-auto`, pi uses global npm; p
 {
   "mcpServers": {
       "pi-auto": {
-        "command": "pi-auto-mcp"
+        "command": "pi-auto-mcp",
+        "lifecycle": "keep-alive",
+        "directTools": true
       }
   }
 }
@@ -92,7 +94,9 @@ Or with explicit path (replace `GLOBAL_NPM_ROOT` with the output of `npm root -g
   "mcpServers": {
       "pi-auto": {
         "command": "node",
-        "args": ["GLOBAL_NPM_ROOT/@netandreus/pi-auto/dist/index.js"]
+        "args": ["GLOBAL_NPM_ROOT/@netandreus/pi-auto/dist/index.js"],
+        "lifecycle": "keep-alive",
+        "directTools": true
       }
   }
 }
