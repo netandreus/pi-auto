@@ -199,19 +199,18 @@ export async function getUsage(period: Period = "daily"): Promise<UsageResult> {
       const entries = allEntries.filter((e) => e.date === today);
       for (const entry of entries) aggregateEntry(entry, backends, config);
 
-      const totals = (data.totals ?? data.summary) as Record<string, unknown> | undefined ?? {};
       const totalInput = Object.values(backends).reduce((s, b) => s + b.inputTokens, 0);
       const totalOutput = Object.values(backends).reduce((s, b) => s + b.outputTokens, 0);
       const totalTokens = Object.values(backends).reduce((s, b) => s + b.totalTokens, 0);
       const totalCost = Object.values(backends).reduce((s, b) => s + b.totalCost, 0);
-
+      // Use only aggregated-from-entries totals so "daily" is truly today (no fallback to CLI global totals).
       resolve({
         backends,
         totals: {
-          inputTokens: totalInput || num(totals["inputTokens"] ?? totals["totalInputTokens"]),
-          outputTokens: totalOutput || num(totals["outputTokens"] ?? totals["totalOutputTokens"]),
-          totalTokens: totalTokens || num(totals["totalTokens"]),
-          totalCost: totalCost || num(totals["totalCost"] ?? totals["totalCostUSD"]),
+          inputTokens: totalInput,
+          outputTokens: totalOutput,
+          totalTokens: totalTokens,
+          totalCost: totalCost,
         },
         period,
         ...(period === "daily" && { date: today }),
