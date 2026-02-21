@@ -21,6 +21,8 @@ export interface UsageResult {
     totalCost: number;
   };
   period: Period;
+  /** For daily period: the date (YYYY-MM-DD) this report is for. */
+  date?: string;
   error?: string;
 }
 
@@ -124,6 +126,11 @@ function aggregateEntry(
   }
 }
 
+/** Today's date in YYYY-MM-DD (local), to match ccusage daily report dates. */
+function todayDateString(): string {
+  return new Date().toLocaleDateString("en-CA", { year: "numeric", month: "2-digit", day: "2-digit" });
+}
+
 /** Run @ccusage/pi CLI and return usage aggregated by backend. */
 export async function getUsage(period: Period = "daily"): Promise<UsageResult> {
   const config = getConfig();
@@ -185,8 +192,11 @@ export async function getUsage(period: Period = "daily"): Promise<UsageResult> {
         return;
       }
 
-      const entries: DailyEntry[] =
+      const allEntries: DailyEntry[] =
         data.daily ?? data.data ?? (data.projects ? ([] as DailyEntry[]).concat(...Object.values(data.projects).filter(Array.isArray)) : []);
+      // For "daily" period, return only today's usage (match ccusage-pi behavior).
+      const today = todayDateString();
+      const entries = allEntries.filter((e) => e.date === today);
       for (const entry of entries) aggregateEntry(entry, backends, config);
 
       const totals = (data.totals ?? data.summary) as Record<string, unknown> | undefined ?? {};
@@ -204,6 +214,7 @@ export async function getUsage(period: Period = "daily"): Promise<UsageResult> {
           totalCost: totalCost || num(totals["totalCost"] ?? totals["totalCostUSD"]),
         },
         period,
+        ...(period === "daily" && { date: today }),
       });
     });
   });

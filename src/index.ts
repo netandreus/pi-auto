@@ -37,6 +37,7 @@ server.registerTool(
         backends: result.backends,
         totals: result.totals,
         period: result.period,
+        ...(result.date != null && { date: result.date }),
         ...(result.error && { error: result.error }),
       },
       null,
