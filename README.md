@@ -108,6 +108,69 @@ Exposed tools: `mcp_pi-auto_pi_get_usage`, `mcp_pi-auto_pi_suggest_provider`, `m
 
 ---
 
+## MCP in Cursor Agent
+
+To use the pi-auto MCP server from **Cursor Agent** (not only from Pi), connect the server, enable it, and allow its tools.
+
+### 1. Connect MCP server to agent
+
+Add the pi-auto MCP server to Cursor’s MCP config (e.g. `~/.cursor/mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "pi-auto": {
+      "command": "pi-auto-mcp",
+      "lifecycle": "keep-alive",
+      "directTools": true
+    }
+  }
+}
+```
+
+### 2. Enable the MCP server
+
+The server may appear as “not loaded (needs approval)”. Enable and approve it:
+
+```bash
+agent mcp list
+# pi-auto: not loaded (needs approval)
+
+agent mcp enable pi-auto
+# ✓ Enabled and approved MCP server: pi-auto
+```
+
+Check that tools are available:
+
+```bash
+agent mcp list-tools pi-auto
+# Tools for pi-auto (8):
+# - pi_get_priority ()
+# - pi_get_provider (scope, projectPath)
+# - pi_get_strategy ()
+# - pi_get_usage (period)
+# - pi_set_priority (priority)
+# - pi_set_provider (provider, model, scope, projectPath)
+# - pi_set_strategy (strategy)
+# - pi_suggest_provider (period)
+```
+
+### 3. Allow tools from this MCP
+
+Ensure Cursor Agent is allowed to call pi-auto MCP tools. In `~/.cursor/cli-config.json`, under `permissions.allow`, include:
+
+```json
+"permissions": {
+  "allow": [
+    "Shell(ls)",
+    "Mcp(pi-auto:*)"
+  ],
+  "deny": []
+}
+```
+
+---
+
 ## Features
 
 | Tool | Description |
